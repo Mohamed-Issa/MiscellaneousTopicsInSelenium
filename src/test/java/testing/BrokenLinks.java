@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 public class BrokenLinks {
 
@@ -25,6 +26,8 @@ public class BrokenLinks {
 
 		// System.out.println(url);
 
+		SoftAssert softAssert = new SoftAssert();
+
 		for (WebElement link : links) {
 
 			String url = link.getAttribute("href");
@@ -34,11 +37,12 @@ public class BrokenLinks {
 			int responseCode = conn.getResponseCode();
 			System.out.println(responseCode);
 
-			if (responseCode > 400) {
-				System.out.println("The link with Text " + link.getText() + " is broken with the code " + responseCode);
-				Assert.assertTrue(false);
-			}
+			softAssert.assertTrue(responseCode < 400,
+					"The link with Text " + link.getText() + " is broken with the code " + responseCode);
+
 		}
+
+		softAssert.assertAll();
 
 	}
 
