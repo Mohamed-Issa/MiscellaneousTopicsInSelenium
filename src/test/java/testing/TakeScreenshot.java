@@ -19,7 +19,7 @@ public class TakeScreenshot {
 		driver.manage().window().maximize();
 		
 		
-		driver.get("https://www.google.com/");
+		driver.get("https://maitest.zvendo.online");
 		
 		
 
